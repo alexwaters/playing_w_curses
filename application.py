@@ -1,4 +1,4 @@
-from itbit_api import api
+import api
 import config, json, time
 
 client_key = config.client_key
