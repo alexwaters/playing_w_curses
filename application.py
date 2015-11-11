@@ -1,5 +1,6 @@
 import api
 import config, json, time
+from urllib import urlopen
 
 client_key = config.client_key
 secret_key = config.client_password
@@ -25,3 +26,15 @@ def main():
 
 def get_price(pair):
     return json.dumps(itbit_api_conn.get_ticker(pair).json())
+
+def get_averages(num=10, pairs=['XBTUSD', 'XBTEUR', 'XBTSGD']):
+    if isinstance(num, int):
+        avgs = []
+        for pair in pairs:
+            data = json.loads(urlopen("https://api.itbit.com/v1/markets/%s/trades" % pair).read())['recentTrades'][:num]
+            total = 0
+            for item in data:
+                total += float(item['price'])
+            avgs.append(round(total/num,2))
+        avg_prices = dict(zip(pairs,avgs))
+    return avg_prices

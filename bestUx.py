@@ -16,8 +16,11 @@ try:
 
         screen.clear()
         screen.border(0)
+        avg_prices = application.get_averages()
+        screen.addstr(15, 1, str(avg_prices))
         screen.addstr(12, 25, "Python curses in action!")
         screen.addstr(4, 4, "P - Get Current Price")
+        screen.addstr(5, 4, "A - Get Average Prices")
         screen.addstr(7, 4, "Q - Exit")
         screen.refresh()
 
@@ -31,6 +34,12 @@ try:
                 time.sleep(1)
                 print application.get_price('XBTUSD')
                 screen.refresh()
+
+        # elif x == ord('A'):
+        #
+        #     time.sleep(1)
+        #     screen.refresh()
+
 except Exception as e:
     exit(1)
 
